@@ -1,0 +1,16 @@
+# Documentación de origen — no se publica en el repo.
+# Fichas técnicas, certificados ANMAT/ISO, hojas de seguridad,
+# el estudio de la UBA y el pliego del Ministerio de Salud.
+*.pdf
+Dive Clor*/
+Dive-Clor*/
+Fichas de producto*/
+Pyam*/
+
+# Borrador anterior de la landing
+beclean-landing*.html
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store

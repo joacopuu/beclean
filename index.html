@@ -1,0 +1,1598 @@
+<title>BeClean Dossier</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="BeClean — tecnología de limpieza y desinfección en tabletas efervescentes. Respaldo de Laboratorio Pyam: desde 1991, 103 países, proveedor global de UNICEF." />
+<meta property="og:title" content="BeClean — Limpiemos hoy, cuidando el mañana" />
+<meta property="og:description" content="Limpieza y desinfección en tabletas efervescentes. >99,999 % de reducción bacteriana en 5 minutos (EN 13697, UBA). Respaldo de Laboratorio Pyam." />
+<meta property="og:type" content="website" />
+<style>
+/* ============================================================
+   BeClean — dossier de laboratorio
+   Un solo archivo. Sin dependencias, sin build, sin CDN.
+   ------------------------------------------------------------
+   TIPOGRAFÍA EN PRODUCCIÓN
+   El archivo usa stacks del sistema para funcionar offline y en
+   entornos con CSP estricta. Para el sitio público, insertá en
+   el <head> el link de webfonts y cambiá las variables --sans /
+   --mono de abajo. Recomendado:
+     Display/body: "Söhne", "Suisse Int'l" o Inter Tight
+     Mono:         "Söhne Mono", JetBrains Mono o IBM Plex Mono
+   ============================================================ */
+
+:root{
+  /* --- grounds: slate con sesgo cian (agua clorada), no gris puro --- */
+  --ink-0:#06100F;
+  --ink-1:#0A1917;
+  --ink-2:#102523;
+  --ink-3:#173230;
+  --paper-0:#F1F5F3;
+  --paper-1:#FBFDFC;
+  --paper-2:#E2EBE7;
+
+  /* --- acento: la tableta disolviéndose --- */
+  --chlor:#0F9E8D;        /* sobre fondo claro */
+  --chlor-lit:#5FE0CD;    /* sobre fondo oscuro */
+  --chlor-dim:#2A7E74;
+  --rust:#B0653C;         /* la vía tradicional, desaturada */
+
+  /* --- texto --- */
+  --on-dark-1:#EAF2F0;
+  --on-dark-2:rgba(234,242,240,.60);
+  --on-dark-3:rgba(234,242,240,.38);
+  --on-light-1:#08201D;
+  --on-light-2:#4B5F5B;
+  --on-light-3:#7C8F8A;
+
+  --rule-dark:rgba(234,242,240,.14);
+  --rule-dark-soft:rgba(234,242,240,.08);
+  --rule-light:rgba(8,32,29,.14);
+  --rule-light-soft:rgba(8,32,29,.07);
+
+  --sans:"Segoe UI Variable Display","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"Cascadia Mono","Segoe UI Mono","SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+
+  --shell:1220px;
+  --gutter:clamp(20px,4.5vw,72px);
+  --rail:clamp(0px,3vw,52px);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper-0);
+  color:var(--on-light-1);
+  font-family:var(--sans);
+  font-size:clamp(1rem,.96rem + .18vw,1.075rem);
+  line-height:1.62;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+
+:focus-visible{outline:2px solid var(--chlor-lit);outline-offset:3px;border-radius:3px}
+
+/* ── grid & shells ───────────────────────────────────────── */
+/* width:100% es necesario: con margin-inline:auto dentro de un contenedor
+   flex, las márgenes automáticas anulan el stretch y el shell se encoge
+   al ancho del contenido, desalineando columnas entre sí. */
+.shell{width:100%;max-width:var(--shell);margin-inline:auto;padding-inline:var(--gutter)}
+.band{padding-block:clamp(76px,9vw,140px);position:relative}
+.band--dark{background:var(--ink-1);color:var(--on-dark-1)}
+.band--deep{background:var(--ink-0);color:var(--on-dark-1)}
+.band--paper{background:var(--paper-1)}
+
+/* ── type system ─────────────────────────────────────────── */
+.display{
+  font-weight:300;
+  letter-spacing:-.042em;
+  line-height:.98;
+  text-wrap:balance;
+  margin:0;
+}
+.display--xl{font-size:clamp(2.9rem,7.4vw,6.4rem)}
+.display--l{font-size:clamp(2.1rem,4.6vw,4rem);letter-spacing:-.036em;line-height:1.02}
+.display--m{font-size:clamp(1.7rem,3vw,2.6rem);letter-spacing:-.03em;line-height:1.06}
+.display em{font-style:normal;color:var(--chlor)}
+.band--dark .display em,.band--deep .display em{color:var(--chlor-lit)}
+
+h3{font-size:1.22rem;font-weight:600;letter-spacing:-.014em;line-height:1.25;margin:0}
+
+.lede{
+  font-size:clamp(1.1rem,.98rem + .6vw,1.42rem);
+  font-weight:300;
+  line-height:1.48;
+  letter-spacing:-.014em;
+  color:var(--on-light-2);
+  max-width:44ch;
+}
+.band--dark .lede,.band--deep .lede{color:var(--on-dark-2)}
+
+.prose{max-width:62ch;color:var(--on-light-2)}
+.band--dark .prose,.band--deep .prose{color:var(--on-dark-2)}
+
+/* eyebrow de dossier: § + número de sección + nombre */
+.mark{
+  font-family:var(--mono);
+  font-size:.685rem;
+  font-weight:600;
+  letter-spacing:.19em;
+  text-transform:uppercase;
+  color:var(--chlor);
+  display:flex;
+  align-items:center;
+  gap:.85em;
+}
+.band--dark .mark,.band--deep .mark{color:var(--chlor-lit)}
+.mark::after{content:"";flex:1;height:1px;background:currentColor;opacity:.28;max-width:180px}
+.mark .sec{color:var(--on-light-3);letter-spacing:.14em}
+.band--dark .mark .sec,.band--deep .mark .sec{color:var(--on-dark-3)}
+
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.tag{
+  font-family:var(--mono);font-size:.66rem;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--on-light-3);
+}
+.band--dark .tag,.band--deep .tag{color:var(--on-dark-3)}
+
+.head{display:flex;flex-direction:column;gap:clamp(18px,2.2vw,26px);max-width:56ch}
+.head .lede{max-width:52ch}
+
+/* ── liquid glass buttons (port del componente) ──────────── */
+.lq{
+  position:relative;isolation:isolate;
+  display:inline-flex;align-items:center;justify-content:center;gap:.6em;
+  border:0;background:transparent;
+  padding:1.05em 2.1em;
+  border-radius:999px;
+  font-family:var(--sans);font-size:.94rem;font-weight:600;letter-spacing:-.005em;
+  cursor:pointer;white-space:nowrap;
+  transition:transform .28s cubic-bezier(.2,.7,.2,1),filter .28s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.lq:hover{transform:translateY(-2px) scale(1.015)}
+.lq:active{transform:translateY(0) scale(.985)}
+.lq__label{position:relative;z-index:2;display:inline-flex;align-items:center;gap:.6em}
+.lq__label svg{width:1.05em;height:1.05em;flex:none}
+.lq__glass{
+  position:absolute;inset:0;z-index:0;border-radius:inherit;overflow:hidden;
+  backdrop-filter:blur(9px) saturate(1.45);
+  -webkit-backdrop-filter:blur(9px) saturate(1.45);
+}
+.lq__shell{position:absolute;inset:0;z-index:1;border-radius:inherit;pointer-events:none;transition:box-shadow .3s ease}
+/* el sheen sigue al cursor */
+.lq__sheen{
+  position:absolute;inset:0;z-index:1;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(120px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.24),transparent 62%);
+  opacity:0;transition:opacity .32s ease;
+}
+.lq:hover .lq__sheen{opacity:1}
+
+.lq--dark{color:var(--on-dark-1)}
+.lq--dark .lq__glass{background:rgba(95,224,205,.10)}
+.lq--dark .lq__shell{
+  box-shadow:
+    0 0 8px rgba(0,0,0,.03),0 2px 6px rgba(0,0,0,.08),
+    inset 3px 3px .5px -3.5px rgba(255,255,255,.09),
+    inset -3px -3px .5px -3.5px rgba(255,255,255,.85),
+    inset 1px 1px 1px -.5px rgba(255,255,255,.6),
+    inset -1px -1px 1px -.5px rgba(255,255,255,.6),
+    inset 0 0 6px 6px rgba(255,255,255,.12),
+    inset 0 0 2px 2px rgba(255,255,255,.06),
+    0 0 12px rgba(0,0,0,.15);
+}
+.lq--dark:hover .lq__shell{box-shadow:
+    0 0 8px rgba(0,0,0,.03),0 4px 14px rgba(0,0,0,.22),
+    inset 3px 3px .5px -3.5px rgba(255,255,255,.14),
+    inset -3px -3px .5px -3.5px rgba(255,255,255,.95),
+    inset 1px 1px 1px -.5px rgba(255,255,255,.75),
+    inset -1px -1px 1px -.5px rgba(255,255,255,.75),
+    inset 0 0 8px 7px rgba(95,224,205,.14),
+    inset 0 0 2px 2px rgba(255,255,255,.08),
+    0 0 22px rgba(95,224,205,.18);
+}
+
+.lq--light{color:var(--on-light-1)}
+.lq--light .lq__glass{background:rgba(15,158,141,.07)}
+.lq--light .lq__shell{
+  box-shadow:
+    0 0 6px rgba(0,0,0,.03),0 2px 6px rgba(0,0,0,.08),
+    inset 3px 3px .5px -3px rgba(0,0,0,.28),
+    inset -3px -3px .5px -3px rgba(0,0,0,.22),
+    inset 1px 1px 1px -.5px rgba(0,0,0,.16),
+    inset -1px -1px 1px -.5px rgba(0,0,0,.16),
+    inset 0 0 6px 6px rgba(0,0,0,.05),
+    inset 0 0 2px 2px rgba(0,0,0,.03),
+    0 0 12px rgba(255,255,255,.15);
+}
+.lq--light .lq__sheen{background:radial-gradient(120px circle at var(--mx,50%) var(--my,50%),rgba(15,158,141,.16),transparent 62%)}
+
+/* CTA sólido, para cuando hace falta jerarquía dura */
+.lq--solid{color:var(--ink-0)}
+.lq--solid .lq__glass{background:var(--chlor-lit);backdrop-filter:none;-webkit-backdrop-filter:none}
+.lq--solid .lq__shell{
+  box-shadow:
+    inset 1px 1px 1px -.5px rgba(255,255,255,.85),
+    inset -1px -1px 1px -.5px rgba(0,0,0,.18),
+    inset 0 0 8px 7px rgba(255,255,255,.22),
+    0 6px 22px rgba(95,224,205,.22);
+}
+.lq--solid .lq__sheen{background:radial-gradient(120px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.5),transparent 62%)}
+
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+/* enlace de texto con subrayado que crece */
+.tlink{
+  display:inline-flex;align-items:center;gap:.5em;
+  font-family:var(--mono);font-size:.72rem;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--chlor);position:relative;padding-block:.35em;
+}
+.band--dark .tlink,.band--deep .tlink{color:var(--chlor-lit)}
+.tlink::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:currentColor;transform:scaleX(.28);transform-origin:left;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.tlink:hover::after{transform:scaleX(1)}
+
+/* ── nav ─────────────────────────────────────────────────── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:80;
+  transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease;
+  border-bottom:1px solid transparent;
+}
+.nav.is-stuck{
+  background:rgba(6,16,15,.72);
+  backdrop-filter:blur(16px) saturate(1.4);
+  -webkit-backdrop-filter:blur(16px) saturate(1.4);
+  border-bottom-color:var(--rule-dark-soft);
+}
+.nav__in{display:flex;align-items:center;justify-content:space-between;gap:28px;height:70px;color:var(--on-dark-1)}
+.brand{display:inline-flex;align-items:baseline;gap:.55em;font-size:1.18rem;font-weight:600;letter-spacing:-.035em}
+.brand .dot{
+  width:9px;height:9px;border-radius:50%;background:var(--chlor-lit);flex:none;
+  align-self:center;box-shadow:0 0 0 0 rgba(95,224,205,.5);
+  animation:pulse 3.4s ease-out infinite;
+}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(95,224,205,.45)}70%{box-shadow:0 0 0 11px rgba(95,224,205,0)}100%{box-shadow:0 0 0 0 rgba(95,224,205,0)}}
+.nav__links{display:flex;gap:30px}
+.nav__links a{
+  font-family:var(--mono);font-size:.7rem;font-weight:600;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--on-dark-2);transition:color .25s ease;
+}
+.nav__links a:hover,.nav__links a.is-current{color:var(--chlor-lit)}
+.nav .lq{padding:.72em 1.4em;font-size:.84rem}
+@media(max-width:980px){.nav__links{display:none}}
+
+/* barra de progreso de lectura */
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--chlor-lit);z-index:90;width:0;transition:width .1s linear;box-shadow:0 0 12px rgba(95,224,205,.6)}
+
+/* ── HERO: corredor 3D ───────────────────────────────────── */
+.hero{
+  position:relative;overflow:hidden;
+  background:radial-gradient(120% 100% at 50% 0%,#123331 0%,#0A1917 46%,#06100F 100%);
+  color:var(--on-dark-1);
+  min-height:100svh;
+  display:flex;flex-direction:column;
+  container-type:inline-size;
+}
+.corridor{position:absolute;inset:0;pointer-events:none}
+.corridor__stage{position:absolute;inset:0;transform-style:preserve-3d}
+.slab{
+  position:absolute;overflow:hidden;
+  border-radius:.45cqw;
+  backface-visibility:hidden;
+  border:1px solid rgba(234,242,240,.16);
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:1.1cqw;
+  box-shadow:0 1cqw 3cqw rgba(0,0,0,.45);
+}
+.slab__code{font-family:var(--mono);font-size:1.05cqw;letter-spacing:.14em;color:rgba(255,255,255,.72);text-transform:uppercase}
+.slab__name{font-size:1.55cqw;font-weight:500;letter-spacing:-.02em;line-height:1.12;color:#fff}
+.slab__pill{width:3.2cqw;height:3.2cqw;border-radius:50%;border:.22cqw solid rgba(255,255,255,.5);align-self:flex-end}
+/* Velo asimétrico: el texto vive en la mitad izquierda, así que el scrim
+   protege ese flanco y deja que el corredor respire a la derecha. */
+.hero__veil{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(97deg,rgba(6,16,15,.97) 0%,rgba(6,16,15,.93) 32%,rgba(6,16,15,.62) 54%,rgba(6,16,15,.12) 74%,transparent 88%),
+    linear-gradient(180deg,rgba(6,16,15,.88) 0%,transparent 20%,transparent 56%,rgba(6,16,15,.95) 100%);
+}
+.hero__in{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;justify-content:center;padding-block:clamp(96px,12vh,132px) 0}
+.hero__kicker{
+  display:inline-flex;align-items:center;gap:.8em;
+  font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--on-dark-2);margin-bottom:clamp(22px,3vw,34px);
+}
+.hero__kicker b{color:var(--chlor-lit);font-weight:600}
+.hero h1{max-width:15ch}
+.hero__sub{margin-top:clamp(24px,2.6vw,34px);max-width:46ch}
+.hero__cta{margin-top:clamp(30px,3.4vw,44px)}
+
+.hero__foot{
+  position:relative;z-index:3;
+  border-top:1px solid var(--rule-dark-soft);
+  margin-top:clamp(48px,6vw,80px);
+}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule-dark-soft)}
+.fact{padding:clamp(20px,2.4vw,30px) 0;padding-right:20px;background:transparent;display:flex;flex-direction:column;gap:.35em}
+.fact b{font-family:var(--mono);font-size:clamp(1.3rem,2.2vw,1.85rem);font-weight:500;letter-spacing:-.03em;color:var(--chlor-lit);line-height:1}
+.fact span{font-size:.83rem;color:var(--on-dark-2);line-height:1.35;max-width:22ch}
+@media(max-width:860px){.facts{grid-template-columns:repeat(2,1fr)}}
+
+.scrollcue{
+  position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:4;
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--on-dark-3);display:flex;flex-direction:column;align-items:center;gap:9px;
+}
+.scrollcue i{display:block;width:1px;height:34px;background:linear-gradient(var(--chlor-lit),transparent);animation:cue 2.6s ease-in-out infinite}
+@keyframes cue{0%,100%{opacity:.25;transform:scaleY(.55);transform-origin:top}50%{opacity:1;transform:scaleY(1);transform-origin:top}}
+
+/* ── marquee de credenciales ─────────────────────────────── */
+.strip{background:var(--ink-0);border-block:1px solid var(--rule-dark-soft);padding-block:22px;overflow:hidden;color:var(--on-dark-1)}
+.strip__track{display:flex;gap:0;width:max-content;animation:slide 46s linear infinite}
+.strip:hover .strip__track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.strip__item{
+  display:inline-flex;align-items:center;gap:.75em;padding-inline:clamp(24px,3vw,46px);
+  font-family:var(--mono);font-size:.74rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--on-dark-2);white-space:nowrap;
+}
+.strip__item::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--chlor-lit);flex:none;opacity:.85}
+
+/* ── sección problema: sticky de 3 tiempos ───────────────── */
+.thesis{background:var(--ink-1);color:var(--on-dark-1)}
+.thesis__track{position:relative}
+.thesis__stick{position:sticky;top:0;min-height:100svh;display:flex;align-items:center;overflow:hidden}
+.thesis__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(36px,6vw,90px);align-items:center;width:100%}
+@media(max-width:900px){.thesis__grid{grid-template-columns:1fr;gap:38px}}
+.beats{position:relative;min-height:270px}
+.beat{
+  position:absolute;inset:0;display:flex;flex-direction:column;gap:16px;
+  opacity:0;transform:translateY(26px);
+  transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.2,1);
+  pointer-events:none;
+}
+.beat.is-on{opacity:1;transform:none;pointer-events:auto}
+.beat__n{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;color:var(--chlor-lit)}
+.beat h3{font-size:clamp(1.5rem,2.6vw,2.15rem);font-weight:300;letter-spacing:-.03em;line-height:1.12}
+.beat p{color:var(--on-dark-2);max-width:40ch}
+.beat__bar{display:flex;gap:6px;margin-top:6px}
+.beat__bar i{flex:1;height:2px;background:var(--rule-dark);transition:background .4s ease}
+.beat__bar i.on{background:var(--chlor-lit)}
+
+/* la ilustración: un bidón que se vacía */
+.vessel{position:relative;aspect-ratio:1/1;max-width:440px;margin-inline:auto;width:100%}
+.vessel svg{width:100%;height:100%;overflow:visible}
+.vessel__cap{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  text-align:center;font-family:var(--mono);
+}
+.vessel__cap b{display:block;font-size:clamp(2.4rem,5vw,3.6rem);font-weight:500;letter-spacing:-.04em;color:var(--chlor-lit);line-height:1}
+.vessel__cap span{display:block;margin-top:.5em;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--on-dark-2)}
+
+.thesis__close{padding-block:clamp(80px,10vw,130px);text-align:center;position:relative;z-index:2}
+.thesis__close .display{margin-inline:auto;max-width:20ch}
+
+/* ── cómo funciona ───────────────────────────────────────── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule-light);margin-top:clamp(44px,5vw,70px);border-block:1px solid var(--rule-light)}
+.step{background:var(--paper-1);padding:clamp(26px,3vw,40px) clamp(20px,2.4vw,34px);display:flex;flex-direction:column;gap:12px}
+.step__n{font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;color:var(--chlor)}
+.step p{color:var(--on-light-2);font-size:.97rem}
+.step__dose{margin-top:auto;padding-top:16px;border-top:1px solid var(--rule-light-soft);font-family:var(--mono);font-size:.74rem;color:var(--on-light-3);letter-spacing:.03em}
+@media(max-width:800px){.steps{grid-template-columns:1fr}}
+
+/* la química */
+.chem{
+  margin-top:clamp(44px,5vw,72px);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+  gap:clamp(32px,5vw,72px);align-items:center;
+  background:var(--ink-1);color:var(--on-dark-1);
+  border-radius:4px;padding:clamp(30px,4vw,60px);
+}
+@media(max-width:860px){.chem{grid-template-columns:1fr}}
+.chem h3{font-size:clamp(1.4rem,2.4vw,1.95rem);font-weight:300;letter-spacing:-.03em;line-height:1.14}
+.chem p{color:var(--on-dark-2);margin-top:16px;font-size:1rem}
+.reaction{display:flex;align-items:center;gap:clamp(10px,2vw,22px);flex-wrap:wrap}
+.rx{
+  flex:1;min-width:118px;border:1px solid var(--rule-dark);border-radius:3px;
+  padding:clamp(14px,1.8vw,20px);display:flex;flex-direction:column;gap:7px;
+  background:rgba(234,242,240,.03);
+}
+.rx b{font-family:var(--mono);font-size:1.02rem;font-weight:600;color:var(--chlor-lit);letter-spacing:.01em}
+.rx span{font-size:.79rem;color:var(--on-dark-2);line-height:1.35}
+.rx--out{border-color:rgba(95,224,205,.42);background:rgba(95,224,205,.07)}
+.arrow{color:var(--on-dark-3);font-family:var(--mono);font-size:1.1rem;flex:none}
+
+/* ── números / rendimiento ───────────────────────────────── */
+.rows{margin-top:clamp(44px,5vw,66px);border-top:1px solid var(--rule-dark)}
+.row{
+  display:grid;grid-template-columns:1.5fr 1fr 1fr .7fr;gap:clamp(14px,2.4vw,30px);
+  align-items:baseline;padding-block:clamp(18px,2.2vw,26px);
+  border-bottom:1px solid var(--rule-dark-soft);
+}
+.row__name{font-size:1.06rem;font-weight:500;letter-spacing:-.015em}
+.row__name small{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--on-dark-3);margin-top:.55em;font-weight:400}
+.cell{display:flex;flex-direction:column;gap:.4em}
+.cell .tag{font-size:.62rem}
+.cell b{font-family:var(--mono);font-size:clamp(.98rem,1.5vw,1.2rem);font-weight:500;letter-spacing:-.015em}
+.cell--us b{color:var(--chlor-lit)}
+.cell--them b{color:var(--on-dark-2);font-weight:400}
+.mult{
+  font-family:var(--mono);font-size:clamp(1rem,1.7vw,1.35rem);font-weight:600;letter-spacing:-.02em;
+  color:var(--on-dark-1);text-align:right;
+}
+@media(max-width:820px){
+  .row{grid-template-columns:1fr 1fr;gap:16px 20px}
+  .row__name{grid-column:1/-1}
+  .mult{text-align:left}
+}
+
+.truck{margin-top:clamp(60px,7vw,100px);text-align:center}
+.truck__lead{max-width:38ch;margin-inline:auto;color:var(--on-dark-2)}
+.bignum{
+  font-family:var(--mono);font-weight:500;
+  font-size:clamp(3.2rem,13vw,9.5rem);line-height:.86;letter-spacing:-.055em;
+  color:var(--on-dark-1);font-variant-numeric:tabular-nums;
+  margin-top:.28em;
+}
+.bignum span{color:var(--chlor-lit)}
+.truck__cap{margin-top:1.5em;font-family:var(--mono);font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;color:var(--on-dark-3)}
+.truck__vs{margin-top:2.4em;display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
+.chip{
+  padding:.62em 1.25em;border:1px solid var(--rule-dark);border-radius:999px;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--on-dark-2);
+}
+.chip--hot{border-color:rgba(95,224,205,.4);color:var(--chlor-lit);background:rgba(95,224,205,.07)}
+
+/* ── evidencia ───────────────────────────────────────────── */
+.dossier{
+  margin-top:clamp(44px,5vw,68px);
+  border:1px solid var(--rule-light);
+  background:var(--paper-1);
+  border-radius:4px;overflow:hidden;
+}
+.dossier__head{
+  padding:clamp(24px,3vw,40px);
+  border-bottom:1px solid var(--rule-light);
+  display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,48px);justify-content:space-between;align-items:flex-start;
+  background:var(--paper-0);
+}
+.dossier__head h3{font-size:clamp(1.25rem,2.2vw,1.7rem);font-weight:400;letter-spacing:-.025em;max-width:22ch}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:18px 32px;flex:1;min-width:260px}
+.meta div{display:flex;flex-direction:column;gap:.4em}
+.meta dt,.meta .k{font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--on-light-3)}
+.meta dd,.meta .v{margin:0;font-family:var(--mono);font-size:.87rem;color:var(--on-light-1);letter-spacing:-.005em}
+
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{padding:15px clamp(16px,2.4vw,32px);text-align:left;border-top:1px solid var(--rule-light-soft);vertical-align:middle}
+thead th{
+  border-top:0;font-family:var(--mono);font-size:.62rem;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--on-light-3);
+  padding-block:14px;white-space:nowrap;
+}
+tbody tr:hover{background:var(--paper-0)}
+td.org{font-style:italic;letter-spacing:-.01em}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--on-light-2);white-space:nowrap}
+td.hit{font-family:var(--mono);font-weight:600;color:var(--chlor);white-space:nowrap}
+.dossier__foot{padding:clamp(20px,2.6vw,30px) clamp(24px,3vw,40px);border-top:1px solid var(--rule-light);background:var(--paper-0);display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+.quote{max-width:66ch;font-size:.94rem;color:var(--on-light-2);font-style:italic;border-left:2px solid var(--chlor);padding-left:18px;line-height:1.5}
+
+.note{
+  margin-top:26px;display:flex;gap:12px;align-items:flex-start;
+  font-size:.86rem;color:var(--on-light-3);max-width:72ch;line-height:1.5;
+}
+.note svg{flex:none;width:15px;height:15px;margin-top:3px;color:var(--on-light-3)}
+.band--dark .note,.band--deep .note{color:var(--on-dark-3)}
+.band--dark .note svg,.band--deep .note svg{color:var(--on-dark-3)}
+
+.spectrum{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule-light);border:1px solid var(--rule-light);margin-top:clamp(36px,4vw,54px);border-radius:4px;overflow:hidden}
+.spec{background:var(--paper-1);padding:clamp(24px,2.8vw,34px);display:flex;flex-direction:column;gap:12px}
+.spec .tag{color:var(--chlor)}
+.spec ul{display:flex;flex-direction:column;gap:.55em;font-size:.93rem;color:var(--on-light-2)}
+.spec li{display:flex;gap:.6em;line-height:1.4}
+.spec li::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--chlor);flex:none;margin-top:.6em;opacity:.6}
+.spec li i{font-style:italic}
+@media(max-width:800px){.spectrum{grid-template-columns:1fr}}
+
+/* ── productos ───────────────────────────────────────────── */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule-light);border:1px solid var(--rule-light);margin-top:clamp(44px,5vw,66px);border-radius:4px;overflow:hidden}
+@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.cards{grid-template-columns:1fr}}
+.card{
+  background:var(--paper-1);padding:clamp(24px,2.8vw,34px);
+  display:flex;flex-direction:column;gap:12px;position:relative;
+  transition:background .3s ease;
+}
+.card:hover{background:var(--paper-0)}
+.card__swatch{width:100%;height:5px;border-radius:99px;margin-bottom:8px}
+.card__yield{font-family:var(--mono);font-size:.66rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--chlor)}
+.card p{font-size:.94rem;color:var(--on-light-2)}
+.card dl{margin:auto 0 0;padding-top:18px;border-top:1px solid var(--rule-light-soft);display:grid;grid-template-columns:auto 1fr;gap:7px 16px;font-family:var(--mono);font-size:.75rem}
+.card dt{color:var(--on-light-3);letter-spacing:.06em}
+.card dd{margin:0;color:var(--on-light-1);text-align:right;font-variant-numeric:tabular-nums}
+.card--flag{background:var(--ink-1);color:var(--on-dark-1)}
+.card--flag:hover{background:var(--ink-2)}
+.card--flag p{color:var(--on-dark-2)}
+.card--flag .card__yield{color:var(--chlor-lit)}
+.card--flag dl{border-top-color:var(--rule-dark-soft)}
+.card--flag dt{color:var(--on-dark-3)}
+.card--flag dd{color:var(--on-dark-1)}
+
+/* ── logística ───────────────────────────────────────────── */
+.logi{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule-dark-soft);margin-top:clamp(44px,5vw,66px);border-block:1px solid var(--rule-dark-soft)}
+.logi div{padding:clamp(24px,2.8vw,34px) 0;padding-right:24px;display:flex;flex-direction:column;gap:.5em}
+.logi b{font-family:var(--mono);font-size:clamp(1.35rem,2.4vw,1.9rem);font-weight:500;letter-spacing:-.035em;color:var(--chlor-lit);line-height:1}
+.logi span{font-size:.86rem;color:var(--on-dark-2);max-width:24ch;line-height:1.4}
+@media(max-width:860px){.logi{grid-template-columns:repeat(2,1fr)}}
+
+/* ── sustentabilidad ─────────────────────────────────────── */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule-light);border:1px solid var(--rule-light);margin-top:clamp(44px,5vw,66px);border-radius:4px;overflow:hidden}
+.metric{background:var(--paper-1);padding:clamp(30px,3.6vw,48px);display:flex;flex-direction:column;gap:.6em}
+.metric b{font-family:var(--mono);font-size:clamp(2.4rem,5vw,3.7rem);font-weight:500;letter-spacing:-.05em;color:var(--chlor);line-height:1;font-variant-numeric:tabular-nums}
+.metric b em{font-style:normal;font-size:.42em;letter-spacing:-.01em;color:var(--chlor-dim)}
+.metric strong{font-size:1.02rem;font-weight:600;letter-spacing:-.01em;margin-top:.35em}
+.metric span{font-size:.9rem;color:var(--on-light-2)}
+@media(max-width:800px){.metrics{grid-template-columns:1fr}}
+
+/* ── timeline ────────────────────────────────────────────── */
+.tl{margin-top:clamp(48px,5.5vw,76px);position:relative}
+.tl::before{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:var(--rule-dark)}
+.tl__scroll{display:flex;gap:0;overflow-x:auto;padding-bottom:18px;scrollbar-width:thin;scrollbar-color:var(--chlor-dim) transparent}
+.tl__scroll::-webkit-scrollbar{height:3px}
+.tl__scroll::-webkit-scrollbar-track{background:var(--rule-dark-soft)}
+.tl__scroll::-webkit-scrollbar-thumb{background:var(--chlor-dim);border-radius:99px}
+.tablewrap{scrollbar-width:thin;scrollbar-color:var(--on-light-3) transparent}
+.tablewrap::-webkit-scrollbar{height:3px}
+.tablewrap::-webkit-scrollbar-track{background:var(--rule-light-soft)}
+.tablewrap::-webkit-scrollbar-thumb{background:var(--on-light-3);border-radius:99px}
+.tl__item{flex:0 0 clamp(220px,24vw,286px);padding-right:clamp(22px,3vw,40px);position:relative;display:flex;flex-direction:column;gap:12px}
+.tl__item::before{
+  content:"";position:absolute;left:0;top:0;width:15px;height:15px;border-radius:50%;
+  background:var(--ink-1);border:1px solid var(--chlor-lit);
+}
+.tl__item.is-key::before{background:var(--chlor-lit);box-shadow:0 0 0 5px rgba(95,224,205,.14)}
+.tl__year{font-family:var(--mono);font-size:1.15rem;font-weight:600;letter-spacing:-.02em;color:var(--chlor-lit);margin-top:30px}
+.tl__item h3{font-size:1.02rem;font-weight:600}
+.tl__item p{font-size:.88rem;color:var(--on-dark-2);line-height:1.45}
+
+/* ── credenciales grid ───────────────────────────────────── */
+.creds{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule-dark-soft);margin-top:clamp(40px,4.6vw,62px);border:1px solid var(--rule-dark-soft)}
+.cred{background:var(--ink-1);padding:clamp(22px,2.6vw,30px);display:flex;flex-direction:column;gap:9px;transition:background .3s ease}
+.cred:hover{background:var(--ink-2)}
+.cred b{font-family:var(--mono);font-size:.86rem;font-weight:600;letter-spacing:.02em;color:var(--chlor-lit)}
+.cred span{font-size:.82rem;color:var(--on-dark-2);line-height:1.4}
+@media(max-width:900px){.creds{grid-template-columns:repeat(2,1fr)}}
+
+/* ── prueba institucional ────────────────────────────────── */
+.proof{
+  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+  gap:clamp(34px,5vw,80px);align-items:center;
+}
+@media(max-width:900px){.proof{grid-template-columns:1fr;gap:36px}}
+.proof__card{
+  border:1px solid var(--rule-light);background:var(--paper-1);border-radius:4px;
+  padding:clamp(26px,3.2vw,42px);display:flex;flex-direction:column;gap:20px;
+}
+.proof__stamp{
+  display:inline-flex;align-items:center;gap:.7em;align-self:flex-start;
+  font-family:var(--mono);font-size:.64rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--chlor);border:1px solid rgba(15,158,141,.35);border-radius:999px;padding:.5em 1em;
+}
+.proof__card h3{font-size:clamp(1.2rem,2.1vw,1.55rem);font-weight:400;letter-spacing:-.025em;line-height:1.2}
+
+/* ── FAQ ─────────────────────────────────────────────────── */
+.faq{margin-top:clamp(40px,4.6vw,62px);border-top:1px solid var(--rule-light)}
+details{border-bottom:1px solid var(--rule-light)}
+summary{
+  list-style:none;cursor:pointer;padding-block:24px;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:28px;
+  font-size:clamp(1.04rem,1.7vw,1.22rem);font-weight:400;letter-spacing:-.02em;line-height:1.3;
+  transition:color .25s ease;
+}
+summary:hover{color:var(--chlor)}
+summary::-webkit-details-marker{display:none}
+summary .pm{position:relative;flex:none;width:22px;height:22px;margin-top:2px}
+summary .pm::before,summary .pm::after{content:"";position:absolute;left:50%;top:50%;background:currentColor;transition:transform .32s cubic-bezier(.2,.7,.2,1),opacity .32s ease}
+summary .pm::before{width:13px;height:1px;transform:translate(-50%,-50%)}
+summary .pm::after{width:1px;height:13px;transform:translate(-50%,-50%)}
+details[open] summary{color:var(--chlor)}
+details[open] summary .pm::after{opacity:0;transform:translate(-50%,-50%) rotate(90deg)}
+details .ans{padding-bottom:26px;max-width:68ch;color:var(--on-light-2);font-size:.98rem}
+details .ans strong{color:var(--on-light-1);font-weight:600}
+
+/* ── cierre ──────────────────────────────────────────────── */
+.end{
+  position:relative;overflow:hidden;background:var(--ink-0);color:var(--on-dark-1);
+  isolation:isolate;
+}
+.end::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:radial-gradient(70% 90% at 50% 108%,rgba(95,224,205,.16) 0%,transparent 62%);
+}
+.fizz{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bub{
+  position:absolute;bottom:-60px;border-radius:50%;
+  background:radial-gradient(circle at 34% 30%,rgba(255,255,255,.42),rgba(95,224,205,.10) 58%,transparent 70%);
+  border:1px solid rgba(255,255,255,.11);
+  animation:rise linear infinite;opacity:0;
+}
+@keyframes rise{
+  0%{transform:translateY(0) scale(.6);opacity:0}
+  14%{opacity:.85}
+  82%{opacity:.5}
+  100%{transform:translateY(-105vh) scale(1.05);opacity:0}
+}
+.end__in{position:relative;z-index:2;text-align:center;padding-block:clamp(90px,11vw,150px)}
+.end__in .display{margin-inline:auto;max-width:17ch}
+.end__in p{margin:1.5em auto 0;max-width:44ch;color:var(--on-dark-2);font-size:1.06rem}
+.end__cta{margin-top:clamp(32px,3.6vw,46px);justify-content:center}
+
+.foot{position:relative;z-index:2;border-top:1px solid var(--rule-dark-soft);padding-block:44px}
+.foot__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;align-items:start}
+@media(max-width:820px){.foot__grid{grid-template-columns:1fr;gap:30px}}
+.foot h4{font-family:var(--mono);font-size:.63rem;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:var(--on-dark-3);margin:0 0 14px}
+.foot address{font-style:normal;font-size:.9rem;color:var(--on-dark-2);line-height:1.65}
+.foot address a:hover{color:var(--chlor-lit)}
+.foot__bar{margin-top:44px;padding-top:22px;border-top:1px solid var(--rule-dark-soft);display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+.foot__bar small{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--on-dark-3)}
+
+/* ── reveal ──────────────────────────────────────────────── */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}.rv-d4{transition-delay:.32s}
+
+/* revelado palabra por palabra para los titulares */
+.wsplit{display:inline-block;overflow:hidden;vertical-align:top}
+.wsplit i{display:inline-block;font-style:inherit;transform:translateY(105%);transition:transform .95s cubic-bezier(.16,.84,.24,1)}
+.in .wsplit i,.wsplit.in i{transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+  .wsplit i{transform:none}
+  .bub{display:none}
+  .slab{animation-play-state:paused!important}
+}
+</style>
+
+<!-- filtro de vidrio líquido (Firefox lo aplica en backdrop-filter; el resto usa el blur del fallback) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="liquid" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" seed="1" result="turb"/>
+      <feGaussianBlur in="turb" stdDeviation="2" result="soft"/>
+      <feDisplacementMap in="SourceGraphic" in2="soft" scale="70" xChannelSelector="R" yChannelSelector="B" result="disp"/>
+      <feGaussianBlur in="disp" stdDeviation="4"/>
+    </filter>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </defs>
+</svg>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- ══════════════════════════ NAV ══════════════════════════ -->
+<header class="nav" id="nav">
+  <div class="shell nav__in">
+    <a href="#top" class="brand" aria-label="BeClean — inicio"><span class="dot" aria-hidden="true"></span>BeClean</a>
+    <nav class="nav__links" aria-label="Secciones">
+      <a href="#tesis">Tesis</a>
+      <a href="#mecanismo">Mecanismo</a>
+      <a href="#rendimiento">Rendimiento</a>
+      <a href="#evidencia">Evidencia</a>
+      <a href="#linea">Línea</a>
+      <a href="#respaldo">Respaldo</a>
+    </nav>
+    <a href="#contacto" class="lq lq--dark">
+      <span class="lq__glass"></span><span class="lq__shell"></span><span class="lq__sheen"></span>
+      <span class="lq__label">Solicitar cotización</span>
+    </a>
+  </div>
+</header>
+
+<!-- ══════════════════════════ HERO ══════════════════════════ -->
+<section class="hero" id="top">
+  <div class="corridor" id="corridor" aria-hidden="true"><div class="corridor__stage" id="stage"></div></div>
+  <div class="hero__veil" aria-hidden="true"></div>
+
+  <div class="shell hero__in">
+    <span class="hero__kicker">Laboratorio Pyam <b>·</b> desde 1991 <b>·</b> 103 países</span>
+    <h1 class="display display--xl" data-split>Limpiemos hoy, cuidando el <em>mañana</em>.</h1>
+    <p class="lede hero__sub rv rv-d3">Convertimos cada producto de limpieza y desinfección en una tableta efervescente. El mismo principio activo, sin transportar agua, sin plástico de un solo uso y con la dosis exacta en cada aplicación.</p>
+    <div class="btn-row hero__cta rv rv-d4">
+      <a href="#contacto" class="lq lq--solid">
+        <span class="lq__glass"></span><span class="lq__shell"></span><span class="lq__sheen"></span>
+        <span class="lq__label">Solicitar cotización o muestras</span>
+      </a>
+      <a href="#evidencia" class="lq lq--dark">
+        <span class="lq__glass"></span><span class="lq__shell"></span><span class="lq__sheen"></span>
+        <span class="lq__label">Ver la evidencia
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <div class="shell hero__foot">
+    <div class="facts">
+      <div class="fact rv"><b>&gt;99,999<em style="font-style:normal">%</em></b><span>De reducción bacteriana en 5 minutos, norma EN 13697</span></div>
+      <div class="fact rv rv-d1"><b>×50</b><span>Más solución lista por envase que un limpiador tradicional</span></div>
+      <div class="fact rv rv-d2"><b>3 años</b><span>De vida útil, con la concentración intacta</span></div>
+      <div class="fact rv rv-d3"><b>103</b><span>Países donde ya se usan los productos del laboratorio</span></div>
+    </div>
+  </div>
+
+  <span class="scrollcue" aria-hidden="true"><i></i>Scroll</span>
+</section>
+
+<!-- ══════════════════════ CREDENCIALES ══════════════════════ -->
+<div class="strip" aria-label="Certificaciones y organismos">
+  <div class="strip__track" id="strip"></div>
+</div>
+
+<!-- ══════════════════════ § 01 · TESIS ══════════════════════ -->
+<section class="thesis" id="tesis">
+  <div class="thesis__track" id="thesisTrack" style="height:320vh">
+    <div class="thesis__stick">
+      <div class="shell thesis__grid">
+        <div>
+          <p class="mark" style="margin-bottom:28px"><span class="sec">§ 01</span> La tesis</p>
+          <div class="beats" id="beats">
+            <article class="beat is-on">
+              <span class="beat__n">01 / 03</span>
+              <h3>La industria de la limpieza transporta agua.</h3>
+              <p>Un bidón de limpiador es, en su enorme mayoría, agua. Esa agua se envasa, se paletiza, sube a un camión y recorre miles de kilómetros — para llegar a un lugar donde ya hay agua de red.</p>
+            </article>
+            <article class="beat">
+              <span class="beat__n">02 / 03</span>
+              <h3>Y la envasa en plástico de un solo uso.</h3>
+              <p>Un envase nuevo por cada dosis de producto. El continente pesa, ocupa y contamina más que el contenido que realmente hace el trabajo.</p>
+            </article>
+            <article class="beat">
+              <span class="beat__n">03 / 03</span>
+              <h3>Y después se dosifica a ojo.</h3>
+              <p>Sin medida exacta no hay protocolo verificable: en desinfección, una dilución mal calculada es la diferencia entre cumplir una norma y creer que se cumple.</p>
+            </article>
+          </div>
+          <div class="beat__bar" id="beatBar"><i class="on"></i><i></i><i></i></div>
+        </div>
+
+        <div class="vessel" aria-hidden="true">
+          <svg viewBox="0 0 400 400" fill="none">
+            <defs>
+              <linearGradient id="liq" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#5FE0CD" stop-opacity=".55"/>
+                <stop offset="100%" stop-color="#0F9E8D" stop-opacity=".16"/>
+              </linearGradient>
+              <clipPath id="jugClip">
+                <path d="M120 96h160a26 26 0 0 1 26 26v192a26 26 0 0 1-26 26H120a26 26 0 0 1-26-26V122a26 26 0 0 1 26-26Z"/>
+              </clipPath>
+            </defs>
+            <path d="M168 52h64v44h-64z" stroke="rgba(234,242,240,.26)" stroke-width="1.5"/>
+            <path d="M120 96h160a26 26 0 0 1 26 26v192a26 26 0 0 1-26 26H120a26 26 0 0 1-26-26V122a26 26 0 0 1 26-26Z" stroke="rgba(234,242,240,.32)" stroke-width="1.5"/>
+            <g clip-path="url(#jugClip)">
+              <rect id="liquid" x="94" y="120" width="212" height="220" fill="url(#liq)" style="transition:transform 1s cubic-bezier(.2,.7,.2,1);transform-origin:50% 100%"/>
+            </g>
+            <g stroke="rgba(234,242,240,.16)" stroke-width="1">
+              <path d="M282 150h24M282 200h24M282 250h24M282 300h24"/>
+            </g>
+            <circle id="tablet" cx="200" cy="238" r="27" fill="none" stroke="#5FE0CD" stroke-width="1.5" opacity="0" style="transition:opacity .8s ease"/>
+            <circle id="tablet2" cx="200" cy="238" r="16" fill="none" stroke="rgba(95,224,205,.5)" stroke-width="1" opacity="0" style="transition:opacity .8s ease .1s"/>
+          </svg>
+          <div class="vessel__cap"><b id="vesselPct">95%</b><span id="vesselLabel">es agua</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell thesis__close">
+    <h2 class="display display--l rv" data-split>BeClean saca el agua de la <em>ecuación</em>.</h2>
+    <p class="lede rv rv-d2" style="margin:26px auto 0;text-align:left;max-width:52ch">Lo que viaja es solamente el activo, comprimido en una tableta de 2,5 o 5 gramos. El agua la pone el cliente, en el lugar de uso, en el momento exacto en que la fórmula se activa.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ § 02 · MECANISMO ═══════════════════ -->
+<section class="band band--paper" id="mecanismo">
+  <div class="shell">
+    <div class="head rv">
+      <p class="mark"><span class="sec">§ 02</span> Mecanismo</p>
+      <h2 class="display display--l">Una tableta. Un volumen de agua definido. Listo.</h2>
+      <p class="lede">Sin mezclas, sin trasvase, sin cálculo. Cada tableta está comprimida para un volumen exacto, y ese volumen es el protocolo.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step rv"><span class="step__n">PASO 01</span><h3>Preparación</h3><p>Se agrega una tableta en el volumen de agua indicado para ese producto.</p><span class="step__dose">Piso 4 L · Multiuso 250 ml · Mediclean 5 L</span></div>
+      <div class="step rv rv-d1"><span class="step__n">PASO 02</span><h3>Dilución</h3><p>La tableta efervesce y se disuelve por completo. En los desinfectantes, el tiempo de acción es de 5 minutos.</p><span class="step__dose">Disolución total · sin agitar</span></div>
+      <div class="step rv rv-d2"><span class="step__n">PASO 03</span><h3>Uso</h3><p>La solución queda lista para trapeador, rociador o pulverizador, y mantiene su concentración durante 7 días.</p><span class="step__dose">7 días de concentración estable</span></div>
+    </div>
+
+    <div class="chem rv">
+      <div>
+        <p class="mark" style="margin-bottom:20px"><span class="sec">§ 02.1</span> La química, en simple</p>
+        <h3>El activo no viaja disuelto. Se activa en el balde.</h3>
+        <p>El principio activo de la línea de desinfección es el <strong style="color:var(--chlor-lit);font-weight:500">dicloroisocianurato de sodio (NaDCC)</strong>. En estado sólido es estable durante tres años. Al entrar en contacto con el agua se hidroliza y libera <strong style="color:var(--chlor-lit);font-weight:500">ácido hipocloroso</strong>, uno de los biocidas más potentes que se conocen, avalado por la OMS y la EPA. La lavandina, en cambio, ya viene disuelta: desde el día uno empieza a perder cloro activo.</p>
+      </div>
+      <div class="reaction">
+        <div class="rx"><b>NaDCC</b><span>Tableta efervescente. Sólida, estable, carga no peligrosa.</span></div>
+        <span class="arrow" aria-hidden="true">+ H₂O →</span>
+        <div class="rx rx--out"><b>HOCl</b><span>Ácido hipocloroso. Acción biocida de amplio espectro, pH neutro, no destiñe.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ § 03 · RENDIMIENTO ══════════════════ -->
+<section class="band band--dark" id="rendimiento">
+  <div class="shell">
+    <div class="head rv">
+      <p class="mark"><span class="sec">§ 03</span> Rendimiento</p>
+      <h2 class="display display--l">Mismo trabajo, una fracción del volumen.</h2>
+      <p class="lede">Solución lista para usar por envase, comparada con el equivalente de primera marca en góndola.</p>
+    </div>
+
+    <div class="rows rv">
+      <div class="row">
+        <div class="row__name">Limpiador de piso<small>Pote de 80 tabletas · 5 g</small></div>
+        <div class="cell cell--us"><span class="tag">BeClean</span><b>320 L</b></div>
+        <div class="cell cell--them"><span class="tag">Primera marca</span><b>35 L</b></div>
+        <div class="mult">×9</div>
+      </div>
+      <div class="row">
+        <div class="row__name">Vidrios / multiuso<small>Pote de 100 tabletas · 2,5 g</small></div>
+        <div class="cell cell--us"><span class="tag">BeClean</span><b>25 L · 100 usos</b></div>
+        <div class="cell cell--them"><span class="tag">Primera marca</span><b>500 ml</b></div>
+        <div class="mult">×50</div>
+      </div>
+      <div class="row">
+        <div class="row__name">Desengrasante de cocina<small>Pote de 100 tabletas · 2,5 g</small></div>
+        <div class="cell cell--us"><span class="tag">BeClean</span><b>25 L · 100 usos</b></div>
+        <div class="cell cell--them"><span class="tag">Primera marca</span><b>500 ml</b></div>
+        <div class="mult">×50</div>
+      </div>
+      <div class="row">
+        <div class="row__name">Limpiador de baño<small>Pote de 100 tabletas · 2,5 g</small></div>
+        <div class="cell cell--us"><span class="tag">BeClean</span><b>25 L · 100 usos</b></div>
+        <div class="cell cell--them"><span class="tag">Primera marca</span><b>500 ml</b></div>
+        <div class="mult">×50</div>
+      </div>
+      <div class="row">
+        <div class="row__name">Desinfectante de superficies<small>Mediclean · pote de 100 tabletas · 2,5 g</small></div>
+        <div class="cell cell--us"><span class="tag">Mediclean</span><b>500 L</b></div>
+        <div class="cell cell--them"><span class="tag">Lavandina 1 L</span><b>20 L</b></div>
+        <div class="mult">×25</div>
+      </div>
+    </div>
+
+    <div class="truck rv">
+      <p class="truck__lead">Llevado a un camión completo, la diferencia deja de ser una comparación de góndola y pasa a ser un problema de logística resuelto:</p>
+      <div class="bignum" id="bignum" data-target="3072000">0</div>
+      <p class="truck__cap">Usos por camión · 38.400 potes</p>
+      <div class="truck__vs">
+        <span class="chip">Primera marca: 184.800 usos por camión</span>
+        <span class="chip chip--hot">16,6× más eficiente</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ § 04 · EVIDENCIA ═══════════════════ -->
+<section class="band band--paper" id="evidencia">
+  <div class="shell">
+    <div class="head rv">
+      <p class="mark"><span class="sec">§ 04</span> Evidencia</p>
+      <h2 class="display display--l">No es una promesa. Está <em>medido</em>.</h2>
+      <p class="lede">La eficacia biocida de la línea de desinfección fue ensayada por un tercero independiente, bajo norma europea, con el inóculo y los tiempos declarados.</p>
+    </div>
+
+    <article class="dossier rv">
+      <div class="dossier__head">
+        <h3>Poder bactericida bajo norma EN 13697</h3>
+        <div class="meta">
+          <div><span class="k">Institución</span><span class="v">UBA · Facultad de Farmacia y Bioquímica</span></div>
+          <div><span class="k">Protocolo</span><span class="v">N.º 5353</span></div>
+          <div><span class="k">Fecha</span><span class="v">10 · 01 · 2021</span></div>
+          <div><span class="k">Dilución ensayada</span><span class="v">1 pastilla / 5 L</span></div>
+          <div><span class="k">Muestra</span><span class="v">Tableta 1,67 g NaDCC</span></div>
+          <div><span class="k">Tiempo de acción</span><span class="v">5 minutos</span></div>
+        </div>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <caption class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Resultados del ensayo de poder bactericida</caption>
+          <thead>
+            <tr>
+              <th scope="col">Microorganismo de prueba</th>
+              <th scope="col">Inóculo inicial (UFC/carrier)</th>
+              <th scope="col">Recuento a 5 min</th>
+              <th scope="col">Reducción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="org">Pseudomonas aeruginosa</td><td class="num">6,0 × 10⁶</td><td class="num">&lt; 10</td><td class="hit">&gt; 99,999 %</td></tr>
+            <tr><td class="org">Staphylococcus aureus</td><td class="num">4,8 × 10⁶</td><td class="num">&lt; 10</td><td class="hit">&gt; 99,999 %</td></tr>
+            <tr><td class="org">Escherichia coli</td><td class="num">3,2 × 10⁶</td><td class="num">&lt; 10</td><td class="hit">&gt; 99,999 %</td></tr>
+            <tr><td class="org">Salmonella choleraesuis</td><td class="num">3,6 × 10⁶</td><td class="num">&lt; 10</td><td class="hit">&gt; 99,999 %</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="dossier__foot">
+        <p class="quote">La muestra, en una dilución de 1 pastilla en 5 L, demuestra actividad biocida frente a <i>Pseudomonas aeruginosa</i>, <i>Staphylococcus aureus</i>, <i>Escherichia coli</i> y <i>Salmonella choleraesuis</i>, destruyendo más del 99,999 % del inóculo dentro de los 5 minutos de acción.</p>
+        <a href="#contacto" class="tlink">Solicitar el protocolo completo</a>
+      </div>
+    </article>
+
+    <p class="note">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 11v5.5M12 7.6v.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      El ensayo corresponde a la línea de tabletas desinfectantes de superficies en base a NaDCC. Los limpiadores BeClean de piso, vidrios, cocina y baño son productos de limpieza —no desinfectantes— y responden a sus propias fichas técnicas y registros.
+    </p>
+
+    <div class="spectrum">
+      <div class="spec rv">
+        <span class="tag">Espectro · bacterias</span>
+        <ul>
+          <li><i>Escherichia coli</i></li>
+          <li><i>Pseudomonas aeruginosa</i></li>
+          <li><i>Salmonella</i> y <i>Shigella</i></li>
+          <li><i>Streptococcus</i> y <i>Staphylococcus</i></li>
+          <li><i>Vibrio cholerae</i></li>
+          <li><i>Enterococcus faecalis</i></li>
+        </ul>
+      </div>
+      <div class="spec rv rv-d1">
+        <span class="tag">Espectro · virus y esporas</span>
+        <ul>
+          <li>Hepatitis A</li>
+          <li>Hepatitis B</li>
+          <li>Poliovirus</li>
+          <li>Rotavirus</li>
+          <li><i>Clostridium difficile</i> (esporulado)</li>
+        </ul>
+      </div>
+      <div class="spec rv rv-d2">
+        <span class="tag">Registros y normas</span>
+        <ul>
+          <li>ANMAT · RNPUD 0250001 — Mediclean</li>
+          <li>ANMAT · RNPUD 0250022 — Mediclean Plus</li>
+          <li>ANMAT · 0250028 — Clorondina</li>
+          <li>ISO 9001:2015 · UKAS · AR-U239690</li>
+          <li>GMP Pharmaceutical · WHO TRS 961</li>
+          <li>NSF / ANSI Standard 60 · SENASA</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(44px,5vw,70px)">
+      <p class="mark rv" style="margin-bottom:26px"><span class="sec">§ 04.1</span> Protocolos de dilución</p>
+      <div class="dossier rv" style="margin-top:0">
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Nivel de riesgo</th>
+                <th scope="col">Ejemplos de aplicación</th>
+                <th scope="col">Concentración</th>
+                <th scope="col">Dosis en balde de 5 L</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Áreas no críticas</strong></td><td style="color:var(--on-light-2)">Corredores, baños, vestuarios, cocinas, pasillos, barandas</td><td class="num">0,03 % · 300 ppm</td><td class="hit">1 tableta</td></tr>
+              <tr><td><strong>Áreas críticas</strong></td><td style="color:var(--on-light-2)">Consultorios médicos, laboratorios</td><td class="num">0,1 % · 1.000 ppm</td><td class="hit">4 tabletas</td></tr>
+              <tr><td><strong>Áreas altamente contaminadas</strong></td><td style="color:var(--on-light-2)">Salas de diálisis, hemoterapia, quirófanos, salas de parto</td><td class="num">0,45 % · 4.500 ppm</td><td class="hit">15 tabletas</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="note">Valores para tabletas Mediclean de 2,5 g de NaDCC, que liberan 1.500 ppm de cloro por litro de agua. La solución preparada conserva su concentración durante 7 días.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════ § 05 · LÍNEA ═════════════════════ -->
+<section class="band" id="linea">
+  <div class="shell">
+    <div class="head rv">
+      <p class="mark"><span class="sec">§ 05</span> La línea</p>
+      <h2 class="display display--l">Del hogar al quirófano, la misma lógica.</h2>
+      <p class="lede">Cuatro limpiadores de uso cotidiano y tres desinfectantes de grado hospitalario. Todos en tableta, todos carga no peligrosa.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card rv">
+        <div class="card__swatch" style="background:linear-gradient(90deg,#7FA37A,#B9CFA6)"></div>
+        <span class="card__yield">Rendimiento ×9</span>
+        <h3>Limpiador de piso</h3>
+        <p>Superficies duras, materiales sintéticos, sanitarios y acero inoxidable. Fragancia duradera.</p>
+        <dl><dt>Tableta</dt><dd>5 g</dd><dt>Rinde</dt><dd>4 L</dd><dt>Pote</dt><dd>80 tabletas</dd><dt>Total</dt><dd>320 L</dd></dl>
+      </article>
+      <article class="card rv rv-d1">
+        <div class="card__swatch" style="background:linear-gradient(90deg,#8C86AE,#C1BCD8)"></div>
+        <span class="card__yield">Rendimiento ×50</span>
+        <h3>Limpiador de vidrios / multiuso</h3>
+        <p>Vidrios, plásticos, acrílicos y superficies generales. Sin marcas ni residuo.</p>
+        <dl><dt>Tableta</dt><dd>2,5 g</dd><dt>Rinde</dt><dd>250 ml</dd><dt>Pote</dt><dd>100 tabletas</dd><dt>Total</dt><dd>25 L</dd></dl>
+      </article>
+      <article class="card rv rv-d2">
+        <div class="card__swatch" style="background:linear-gradient(90deg,#B79463,#DCC69C)"></div>
+        <span class="card__yield">Rendimiento ×50</span>
+        <h3>Desengrasante de cocina</h3>
+        <p>Superficies de cocina, campanas y electrodomésticos. Corta la grasa sin abrasivos.</p>
+        <dl><dt>Tableta</dt><dd>2,5 g</dd><dt>Rinde</dt><dd>250 ml</dd><dt>Pote</dt><dd>100 tabletas</dd><dt>Total</dt><dd>25 L</dd></dl>
+      </article>
+      <article class="card rv">
+        <div class="card__swatch" style="background:linear-gradient(90deg,#5E8FA8,#A2C6D8)"></div>
+        <span class="card__yield">Rendimiento ×50</span>
+        <h3>Limpiador de baño</h3>
+        <p>Sanitarios, azulejos y grifería. Formulado para el uso diario del baño.</p>
+        <dl><dt>Tableta</dt><dd>2,5 g</dd><dt>Rinde</dt><dd>250 ml</dd><dt>Pote</dt><dd>100 tabletas</dd><dt>Total</dt><dd>25 L</dd></dl>
+      </article>
+      <article class="card card--flag rv rv-d1">
+        <div class="card__swatch" style="background:linear-gradient(90deg,#0F9E8D,#5FE0CD)"></div>
+        <span class="card__yield">Desinfectante · uso hospitalario</span>
+        <h3>Mediclean</h3>
+        <p>Amplio espectro, elimina el 99,99 % de microorganismos, bacterias, hongos, protozoos y virus. pH neutro, no destiñe. Apto para trapeador y pulverizador.</p>
+        <dl><dt>Tableta</dt><dd>2,5 g NaDCC</dd><dt>Rinde</dt><dd>5 L · 300 ppm</dd><dt>Potes</dt><dd>18 / 60 / 100</dd><dt>Registro</dt><dd>RNPUD 0250001</dd></dl>
+      </article>
+      <article class="card card--flag rv rv-d2">
+        <div class="card__swatch" style="background:linear-gradient(90deg,#0B7F87,#4FC9D6)"></div>
+        <span class="card__yield">Limpia y desinfecta en una pasada</span>
+        <h3>Mediclean Plus</h3>
+        <p>Desinfectante con componente detergente (tripolifosfato pentasódico y lauril sulfato de sodio): un solo paso en lugar de dos.</p>
+        <dl><dt>Tableta</dt><dd>2,5 g NaDCC</dd><dt>Rinde</dt><dd>5 L · 280 ppm</dd><dt>Pote</dt><dd>100 tabletas</dd><dt>Registro</dt><dd>RNPUD 0250022</dd></dl>
+      </article>
+      <article class="card card--flag rv rv-d3">
+        <div class="card__swatch" style="background:linear-gradient(90deg,#1F6E63,#3FB8A3)"></div>
+        <span class="card__yield">Aprobado por SENASA</span>
+        <h3>Germ Over 1,67 g</h3>
+        <p>Desinfectante de superficies de dosificación económica, para volumen y uso profesional intensivo.</p>
+        <dl><dt>Tableta</dt><dd>1,67 g NaDCC</dd><dt>Rinde</dt><dd>5 L · 200 ppm</dd><dt>Pote</dt><dd>140 pastillas</dd><dt>Vida útil</dt><dd>3 años</dd></dl>
+      </article>
+      <article class="card rv rv-d4" style="background:var(--paper-0)">
+        <div class="card__swatch" style="background:linear-gradient(90deg,var(--on-light-3),var(--paper-2))"></div>
+        <span class="card__yield">Composición · línea de limpieza</span>
+        <h3>Fórmula declarada</h3>
+        <p>Ácido cítrico · sales inorgánicas · tensioactivo no iónico · conservantes · fragancia · colorantes.</p>
+        <dl><dt>Transporte</dt><dd>No peligroso</dd><dt>Vía</dt><dd>Aire · mar · tierra</dd></dl>
+      </article>
+    </div>
+
+    <div class="dossier rv" style="margin-top:clamp(44px,5vw,66px)">
+      <div class="dossier__head" style="align-items:center">
+        <h3>Mediclean frente a lavandina de primera marca</h3>
+        <a href="#contacto" class="tlink" style="align-self:center">Pedir ficha técnica</a>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th scope="col">Criterio</th><th scope="col" style="color:var(--chlor)">Mediclean</th><th scope="col">Lavandina 1 L</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Usos por envase</strong></td><td class="hit">100 usos por pote</td><td class="num">4 usos por botella</td></tr>
+            <tr><td><strong>Solución total</strong></td><td class="hit">500 litros</td><td class="num">20 litros</td></tr>
+            <tr><td><strong>Vida útil</strong></td><td class="hit">3 años · concentración estable</td><td class="num">120 días · pérdida continua</td></tr>
+            <tr><td><strong>Clasificación de transporte</strong></td><td class="hit">Carga no peligrosa</td><td class="num">Carga peligrosa</td></tr>
+            <tr><td><strong>Dosificación</strong></td><td class="hit">Exacta, por tableta</td><td class="num">Inexacta, por volumen</td></tr>
+            <tr><td><strong>Acción del calor y la luz</strong></td><td class="hit">Ninguna</td><td class="num">Muy dañina</td></tr>
+            <tr><td><strong>Sobre las superficies</strong></td><td class="hit">pH neutro · no destiñe</td><td class="num">Destiñe</td></tr>
+            <tr><td><strong>Almacenamiento</strong></td><td class="hit">Práctico</td><td class="num">Dificultoso</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ § 06 · LOGÍSTICA ═══════════════════ -->
+<section class="band band--deep" id="logistica">
+  <div class="shell">
+    <div class="head rv">
+      <p class="mark"><span class="sec">§ 06</span> Logística</p>
+      <h2 class="display display--l">Carga no peligrosa, pallet cerrado, tres años de vida útil.</h2>
+      <p class="lede">Para una licitación o un contrato de abastecimiento, esto pesa tanto como la fórmula. Los datos de la unidad logística, cerrados:</p>
+    </div>
+    <div class="logi rv">
+      <div><b>24</b><span>Unidades por caja de 300 × 400 × 250 mm</span></div>
+      <div><b>11,55 kg</b><span>Peso de la caja completa</span></div>
+      <div><b>960</b><span>Unidades por pallet · 40 cajas</span></div>
+      <div><b>1,36 m²</b><span>Pallet de 100 × 120 × 114 cm · 477 kg</span></div>
+    </div>
+    <p class="note rv" style="margin-top:34px">Clasificación de mercadería no peligrosa para transporte aéreo, marítimo y terrestre. Esto elimina sobrecostos de flete, restricciones de almacenamiento y requisitos especiales de manipulación que sí aplican a los desinfectantes líquidos clorados.</p>
+  </div>
+</section>
+
+<!-- ═════════════════ § 07 · SUSTENTABILIDAD ═════════════════ -->
+<section class="band band--paper" id="sustentabilidad">
+  <div class="shell">
+    <div class="head rv">
+      <p class="mark"><span class="sec">§ 07</span> Impacto</p>
+      <h2 class="display display--l">El ahorro ambiental no es un agregado. Es el mismo cambio.</h2>
+      <p class="lede">Sacar el agua del envase reduce simultáneamente el plástico, las emisiones del transporte y el desperdicio de producto.</p>
+    </div>
+    <div class="metrics">
+      <div class="metric rv"><b data-target="93.75" data-decimals="2">0<em>%</em></b><strong>Menos emisiones de CO₂</strong><span>Por unidad de solución entregada, gracias a un transporte drásticamente más eficiente.</span></div>
+      <div class="metric rv rv-d1"><b data-target="95.45" data-decimals="2">0<em>%</em></b><strong>Menos plástico</strong><span>Frente al equivalente en envases tradicionales de un solo uso.</span></div>
+      <div class="metric rv rv-d2"><b>Cero</b><strong>Agua en la producción</strong><span>La fórmula se comprime en seco y se activa recién en el momento del uso.</span></div>
+    </div>
+    <p class="note">Aprovechamiento total por dosis: no queda producto remanente en el envase ni se descarta solución sobrante. Cálculos de CO₂ y plástico provistos por el laboratorio sobre la base del rendimiento comparado por envase.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ § 08 · RESPALDO ═══════════════════ -->
+<section class="band band--dark" id="respaldo">
+  <div class="shell">
+    <div class="head rv">
+      <p class="mark"><span class="sec">§ 08</span> Respaldo</p>
+      <h2 class="display display--l">BeClean nace de un laboratorio que hace 30 años produce para emergencias.</h2>
+      <p class="lede">Laboratorio Pyam fabrica comprimidos potabilizadores de agua y desinfectantes de superficies desde 1991, en una planta diseñada y operada bajo estándares farmacéuticos.</p>
+    </div>
+
+    <div class="tl rv">
+      <div class="tl__scroll">
+        <article class="tl__item"><span class="tl__year">1991</span><h3>Fundación</h3><p>Pyam comienza a operar afrontando la epidemia de cólera en Sudamérica.</p></article>
+        <article class="tl__item"><span class="tl__year">1998</span><h3>Planta propia</h3><p>Construcción de la planta en el parque industrial de Gualeguaychú, Entre Ríos.</p></article>
+        <article class="tl__item is-key"><span class="tl__year">2006</span><h3>UNICEF</h3><p>Primer acuerdo a largo plazo. Pyam pasa a ser uno de los 3 proveedores globales de UNICEF para este tipo de productos.</p></article>
+        <article class="tl__item"><span class="tl__year">2011</span><h3>Haití</h3><p>Soporte en una de las emergencias humanitarias más grandes de la historia.</p></article>
+        <article class="tl__item"><span class="tl__year">2017</span><h3>Yemen</h3><p>Agua potable para población refugiada durante grandes brotes de cólera en contexto bélico.</p></article>
+        <article class="tl__item"><span class="tl__year">2020</span><h3>Covid-19</h3><p>Soporte a la respuesta sanitaria con desinfectantes y potabilizadores.</p></article>
+        <article class="tl__item is-key"><span class="tl__year">2025</span><h3>Ministerio de Salud</h3><p>Contratación directa por exclusividad para el abastecimiento de 5.000.000 de pastillas potabilizadoras.</p></article>
+      </div>
+    </div>
+
+    <div class="creds rv">
+      <div class="cred"><b>ANMAT</b><span>Autorización de productos y de planta. RNE 080030198.</span></div>
+      <div class="cred"><b>ISO 9001:2015</b><span>Certificado UKAS AR-U239690, sistema de gestión de calidad.</span></div>
+      <div class="cred"><b>GMP Pharmaceutical</b><span>Buenas prácticas de manufactura, WHO Technical Report Series 961.</span></div>
+      <div class="cred"><b>NSF / ANSI 60</b><span>Norma internacional para aditivos de tratamiento de agua potable.</span></div>
+      <div class="cred"><b>SENASA</b><span>Habilitación para uso en ámbitos de producción agroalimentaria.</span></div>
+      <div class="cred"><b>UNICEF</b><span>Uno de los 3 proveedores globales desde 2006.</span></div>
+      <div class="cred"><b>103 países</b><span>Foco en América Latina, África y Asia.</span></div>
+      <div class="cred"><b>Producción para terceros</b><span>Unilever, Diversey, Clorotec y Ecolab, entre otros.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ § 09 · PRUEBA INSTITUCIONAL ═══════════════ -->
+<section class="band" id="institucional">
+  <div class="shell proof">
+    <div class="rv">
+      <p class="mark" style="margin-bottom:26px"><span class="sec">§ 09</span> Prueba institucional</p>
+      <h2 class="display display--m">Cuando un Estado necesita que el producto funcione, no licita: contrata por exclusividad.</h2>
+      <p class="prose" style="margin-top:24px">Es el mayor aval que puede recibir un fabricante de este rubro. El Ministerio de Salud de la Nación resolvió el abastecimiento de pastillas potabilizadoras mediante contratación directa por exclusividad — el mecanismo que se aplica cuando un solo proveedor puede cumplir con la especificación técnica requerida.</p>
+      <div class="btn-row" style="margin-top:32px">
+        <a href="#contacto" class="lq lq--light">
+          <span class="lq__glass"></span><span class="lq__shell"></span><span class="lq__sheen"></span>
+          <span class="lq__label">Hablar con el equipo comercial</span>
+        </a>
+      </div>
+    </div>
+    <div class="proof__card rv rv-d2">
+      <span class="proof__stamp">Expediente vigente · 2025</span>
+      <h3>Adquisición de pastillas potabilizadoras de agua</h3>
+      <div class="meta">
+        <div><span class="k">Organismo</span><span class="v">Ministerio de Salud de la Nación</span></div>
+        <div><span class="k">Procedimiento</span><span class="v">Contratación directa por exclusividad</span></div>
+        <div><span class="k">Proceso COMPR.AR</span><span class="v">80-0031-CDI25</span></div>
+        <div><span class="k">Cantidad</span><span class="v">5.000.000 de pastillas</span></div>
+        <div><span class="k">Plazo</span><span class="v">12 meses, con opción a prórroga</span></div>
+        <div><span class="k">Vida útil exigida</span><span class="v">Mínimo 36 meses</span></div>
+      </div>
+      <p class="note" style="margin-top:6px">Requisito del pliego: certificado ANMAT vigente y sin restricciones de comercialización a la fecha de apertura de ofertas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════ FAQ ═════════════════════════ -->
+<section class="band band--paper" id="faq">
+  <div class="shell">
+    <div class="head rv">
+      <p class="mark"><span class="sec">§ 10</span> Preguntas frecuentes</p>
+      <h2 class="display display--l">Lo que suelen preguntarnos antes de comprar.</h2>
+    </div>
+    <div class="faq rv">
+      <details open>
+        <summary>¿Una tableta rinde realmente lo mismo que un limpiador líquido?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans">Rinde más. Un pote de 100 tabletas de multiuso equivale a <strong>25 litros de solución lista</strong>, contra los 500 ml de una botella de primera marca. En el limpiador de piso, 80 tabletas rinden <strong>320 litros</strong>. La diferencia es que el líquido ya viene diluido de fábrica: se paga y se transporta el agua.</div>
+      </details>
+      <details>
+        <summary>¿Sirve para uso hospitalario o solo doméstico?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans">Mediclean y Mediclean Plus están declarados aptos para <strong>uso doméstico y hospitalario</strong>, con protocolos de dilución diferenciados por nivel de riesgo: 1 tableta en 5 L para áreas no críticas, 4 tabletas para áreas críticas y 15 tabletas para áreas altamente contaminadas. Ambos cuentan con registro RNPUD de ANMAT.</div>
+      </details>
+      <details>
+        <summary>¿Cómo se manipula y qué precauciones exige?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans">Las tabletas son <strong>carga no peligrosa</strong> para transporte y almacenamiento, lo que simplifica toda la cadena logística. En manipulación directa, la ficha de datos de seguridad de la línea NaDCC clasifica el producto concentrado con irritación ocular categoría 2 (H319) y posible irritación de vías respiratorias (H335): se recomienda usar guantes, evitar respirar el polvo y trabajar en lugar ventilado. Una vez diluida en agua, la solución de uso no presenta esas advertencias. Entregamos la ficha de seguridad completa con cada pedido.</div>
+      </details>
+      <details>
+        <summary>¿Cuánto dura el producto y cuánto dura la solución preparada?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans">La tableta tiene <strong>3 años de vida útil</strong> manteniendo su concentración intacta, porque el activo viaja en estado sólido. Una vez disuelta, la solución <strong>conserva su concentración durante 7 días</strong>. La lavandina, en comparación, declara unos 120 días y pierde cloro activo de forma continua desde el envasado.</div>
+      </details>
+      <details>
+        <summary>¿Qué respaldo científico tiene la eficacia declarada?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans">El ensayo de poder bactericida bajo norma <strong>EN 13697</strong> fue realizado por la Facultad de Farmacia y Bioquímica de la Universidad de Buenos Aires (protocolo N.º 5353), y verificó una destrucción superior al <strong>99,999 % del inóculo en 5 minutos</strong> frente a cuatro microorganismos de prueba. El protocolo completo está disponible a pedido.</div>
+      </details>
+      <details>
+        <summary>¿Manejan volúmenes para licitaciones y contratos de abastecimiento?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans">Sí. La planta de Gualeguaychú opera bajo estándares farmacéuticos y exporta a 103 países, con producciones especiales para Unilever, Diversey, Clorotec y Ecolab. La unidad logística está estandarizada en pallets de 960 unidades, y los productos cuentan con los registros ANMAT y las certificaciones que suelen exigir los pliegos públicos.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════ CIERRE ═════════════════════════ -->
+<footer class="end" id="contacto">
+  <div class="fizz" id="fizz" aria-hidden="true"></div>
+  <div class="shell end__in">
+    <h2 class="display display--l rv" data-split>Revolucionemos la limpieza <em>juntos</em>.</h2>
+    <p class="rv rv-d2">Cotizaciones, muestras, fichas técnicas, protocolos de ensayo y condiciones para licitación. Contanos qué necesitás y te respondemos con la documentación completa.</p>
+    <div class="btn-row end__cta rv rv-d3">
+      <a href="mailto:info@laboratoriopyam.com?subject=Consulta%20BeClean" class="lq lq--solid">
+        <span class="lq__glass"></span><span class="lq__shell"></span><span class="lq__sheen"></span>
+        <span class="lq__label">Escribirnos</span>
+      </a>
+      <a href="tel:+541147170677" class="lq lq--dark">
+        <span class="lq__glass"></span><span class="lq__shell"></span><span class="lq__sheen"></span>
+        <span class="lq__label">+54 11 4717-0677</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="shell foot">
+    <div class="foot__grid">
+      <div>
+        <span class="brand" style="color:var(--on-dark-1)"><span class="dot" aria-hidden="true"></span>BeClean</span>
+        <p style="margin-top:14px;color:var(--on-dark-2);font-size:.92rem;max-width:34ch">Limpieza y desinfección en tabletas efervescentes. Una marca respaldada por Laboratorio Pyam S.A.</p>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <address>
+          México 964 · (B1640DLD) Martínez<br />
+          Buenos Aires, Argentina<br />
+          <a href="tel:+541147170677">+54 11 4717-0677</a><br />
+          <a href="mailto:info@laboratoriopyam.com">info@laboratoriopyam.com</a>
+        </address>
+      </div>
+      <div>
+        <h4>Planta</h4>
+        <address>
+          Parcelas 11, 13 y 14<br />
+          Parque Industrial Gualeguaychú<br />
+          Entre Ríos, Argentina<br />
+          RNE 080030198
+        </address>
+      </div>
+    </div>
+    <div class="foot__bar">
+      <small>© <span id="year">2026</span> Laboratorio Pyam S.A. — Todos los derechos reservados.</small>
+      <small>Limpiemos hoy, cuidando el mañana.</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var coarse = window.matchMedia("(pointer: coarse)").matches;
+
+// El <html> lo provee el host cuando la página se publica embebida,
+// así que el idioma se fija desde acá para que valga en ambos casos.
+document.documentElement.lang = "es-AR";
+
+/* ══════════════════════════════════════════════════════════
+   1 · SCROLL SUAVE CON INERCIA
+   Se intercepta la rueda y se interpola la posición, al estilo
+   de las referencias (augen.pro / topology.vc). En touch y con
+   reduced-motion se deja el scroll nativo.
+   ══════════════════════════════════════════════════════════ */
+var smooth = !reduce && !coarse;
+if (smooth) {
+  var target = window.scrollY, current = target, raf = null, self = false;
+  var maxY = function(){ return document.documentElement.scrollHeight - window.innerHeight; };
+  var clamp = function(v){ return Math.max(0, Math.min(v, maxY())); };
+
+  function loop(){
+    current += (target - current) * 0.11;
+    if (Math.abs(target - current) < 0.4) { current = target; raf = null; }
+    self = true;
+    window.scrollTo(0, current);
+    self = false;
+    if (raf !== null) raf = requestAnimationFrame(loop);
+  }
+  function kick(){ if (raf === null) { raf = 1; raf = requestAnimationFrame(loop); } }
+
+  window.addEventListener("wheel", function(e){
+    if (e.ctrlKey) return;
+    var d = e.deltaY * (e.deltaMode === 1 ? 18 : e.deltaMode === 2 ? window.innerHeight : 1);
+    e.preventDefault();
+    target = clamp(target + d);
+    kick();
+  }, {passive:false});
+
+  // el teclado y la barra siguen siendo nativos: resincronizamos
+  window.addEventListener("scroll", function(){
+    if (!self && raf === null) { target = current = window.scrollY; }
+  }, {passive:true});
+  window.addEventListener("resize", function(){ target = clamp(target); }, {passive:true});
+
+  // anclas
+  document.addEventListener("click", function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute("href");
+    if (id === "#" ) return;
+    var el = document.querySelector(id);
+    if (!el) return;
+    e.preventDefault();
+    target = clamp(el.getBoundingClientRect().top + window.scrollY - (id === "#top" ? 0 : 78));
+    kick();
+    history.replaceState(null, "", id);
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   2 · HERO — CORREDOR 3D
+   Port del componente ImageStreamHero: dos rieles de placas que
+   vienen desde el punto de fuga hacia el lector. La perspectiva
+   hace todo el trabajo — al crecer z, la placa se agranda y su x
+   en pantalla se abre desde el centro.
+   ══════════════════════════════════════════════════════════ */
+var PATH = {
+  perspective:30, cardWidth:18, cardHeight:25, cardRadius:.4,
+  birthHeight:2.6, exitHeight:46, railBirth:-11, railExit:44,
+  fan:3.3, turnBirth:6, turnExit:28, stops:24
+};
+
+// Sin fotos de producto todavía: cada placa es una ficha del dossier.
+// Reemplazá `bg` por una imagen (background-image) cuando tengas el shooting.
+var SLABS = [
+  {code:"BC-01", name:"Limpiador de piso",        bg:"linear-gradient(155deg,#2E4A3B,#7FA37A)"},
+  {code:"EN 13697", name:"> 99,999 % en 5 min",   bg:"linear-gradient(155deg,#0B3B38,#0F9E8D)"},
+  {code:"BC-02", name:"Vidrios / multiuso",       bg:"linear-gradient(155deg,#3A3550,#8C86AE)"},
+  {code:"ANMAT", name:"0250028",                  bg:"linear-gradient(155deg,#12312F,#2A7E74)"},
+  {code:"BC-03", name:"Desengrasante de cocina",  bg:"linear-gradient(155deg,#4A3820,#B79463)"},
+  {code:"ISO", name:"9001:2015",                  bg:"linear-gradient(155deg,#0D2A33,#3E7E8C)"},
+  {code:"BC-04", name:"Limpiador de baño",        bg:"linear-gradient(155deg,#1F3B4A,#5E8FA8)"},
+  {code:"UNICEF", name:"Desde 2006",              bg:"linear-gradient(155deg,#0A2E42,#2E7FA8)"},
+  {code:"MC-01", name:"Mediclean · NaDCC",        bg:"linear-gradient(155deg,#07322E,#5FE0CD)"},
+  {code:"PYAM", name:"103 países",                bg:"linear-gradient(155deg,#122624,#4C6E67)"},
+  {code:"MC-02", name:"Mediclean Plus",           bg:"linear-gradient(155deg,#06343A,#4FC9D6)"},
+  {code:"IATA", name:"Carga no peligrosa",        bg:"linear-gradient(155deg,#26241A,#8A8258)"}
+];
+
+(function corridor(){
+  var stage = document.getElementById("stage");
+  if (!stage) return;
+  // axisX corre el punto de fuga hacia la derecha, fuera del scrim del
+  // titular: la composición queda asimétrica a propósito.
+  var p = PATH, cards = 9, speed = 26, axis = 50, axisX = 62;
+
+  function keyframes(dir, name){
+    var steps = [];
+    for (var s = 0; s <= p.stops; s++){
+      var u = s / p.stops;
+      // geométrico en tamaño aparente: placas consecutivas guardan
+      // una razón constante y la cinta no se rompe en los extremos
+      var scale = (p.birthHeight / p.cardHeight) * Math.pow(p.exitHeight / p.birthHeight, u);
+      var z = p.perspective * (1 - 1 / scale);
+      var rail = p.railExit - (p.railExit - p.railBirth) * Math.pow(1 - u, p.fan);
+      var turn = p.turnBirth + (p.turnExit - p.turnBirth) * u;
+      steps.push((u*100).toFixed(2) + "%{transform:translate3d(" + (dir*rail).toFixed(2) +
+        "cqw,0," + z.toFixed(2) + "cqw) rotateY(" + (-dir*turn).toFixed(2) + "deg)}");
+    }
+    return "@keyframes " + name + "{" + steps.join("") + "}";
+  }
+
+  var st = document.createElement("style");
+  st.textContent = keyframes(1, "railR") + keyframes(-1, "railL");
+  document.head.appendChild(st);
+
+  var host = document.getElementById("corridor");
+  host.style.perspective = p.perspective + "cqw";
+  host.style.perspectiveOrigin = axisX + "% " + axis + "%";
+
+  var html = "";
+  ["railR","railL"].forEach(function(name){
+    for (var i = 0; i < cards; i++){
+      var s = SLABS[i % SLABS.length];
+      html += '<div class="slab" style="' +
+        "left:50%;top:" + axis + "%;" +
+        "width:" + p.cardWidth + "cqw;height:" + p.cardHeight + "cqw;" +
+        "margin-left:" + (-p.cardWidth/2) + "cqw;margin-top:" + (-p.cardHeight/2) + "cqw;" +
+        "background:" + s.bg + ";" +
+        "animation:" + name + " " + speed + "s linear infinite;" +
+        // delay negativo: el corredor ya está lleno en el primer frame
+        "animation-delay:" + (-(i * speed) / cards) + "s;" +
+        '"><span class="slab__code">' + s.code + '</span>' +
+        '<span class="slab__pill"></span>' +
+        '<span class="slab__name">' + s.name + "</span></div>";
+    }
+  });
+  stage.innerHTML = html;
+})();
+
+/* ══════════════════════════════════════════════════════════
+   3 · MARQUEE DE CREDENCIALES
+   ══════════════════════════════════════════════════════════ */
+(function strip(){
+  var host = document.getElementById("strip");
+  if (!host) return;
+  var items = ["ANMAT","SENASA","ISO 9001:2015 · UKAS","GMP Pharmaceutical","NSF / ANSI 60",
+               "WHO TRS 961","UNICEF · proveedor global","Ministerio de Salud de la Nación",
+               "EN 13697 · UBA","103 países","Planta GMP · Gualeguaychú"];
+  var one = items.map(function(t){ return '<span class="strip__item">' + t + "</span>"; }).join("");
+  host.innerHTML = one + one; // duplicado para el loop continuo
+})();
+
+/* ══════════════════════════════════════════════════════════
+   4 · REVELADOS
+   ══════════════════════════════════════════════════════════ */
+// titulares palabra por palabra
+document.querySelectorAll("[data-split]").forEach(function(h){
+  var frag = document.createDocumentFragment();
+  Array.prototype.forEach.call(h.childNodes, function(node){
+    if (node.nodeType === 3){
+      node.textContent.split(/(\s+)/).forEach(function(w){
+        if (!w.trim()) { frag.appendChild(document.createTextNode(" ")); return; }
+        var s = document.createElement("span"); s.className = "wsplit";
+        var i = document.createElement("i"); i.textContent = w;
+        s.appendChild(i); frag.appendChild(s);
+      });
+    } else {
+      var s2 = document.createElement("span"); s2.className = "wsplit";
+      var i2 = document.createElement("i"); i2.appendChild(node.cloneNode(true));
+      s2.appendChild(i2); frag.appendChild(s2);
+    }
+  });
+  h.textContent = "";
+  h.appendChild(frag);
+  h.querySelectorAll(".wsplit i").forEach(function(el, n){ el.style.transitionDelay = (n * 0.055) + "s"; });
+  h.classList.add("rv");
+});
+
+var revealables = document.querySelectorAll(".rv");
+if (reduce || !("IntersectionObserver" in window)){
+  revealables.forEach(function(el){ el.classList.add("in"); });
+} else {
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+    });
+  }, {threshold:.14, rootMargin:"0px 0px -8% 0px"});
+  revealables.forEach(function(el){ io.observe(el); });
+}
+
+/* ══════════════════════════════════════════════════════════
+   5 · CONTADORES
+   ══════════════════════════════════════════════════════════ */
+function fmt(n, d){
+  return d > 0
+    ? n.toLocaleString("es-AR", {minimumFractionDigits:d, maximumFractionDigits:d})
+    : Math.round(n).toLocaleString("es-AR");
+}
+function countUp(el){
+  var to = parseFloat(el.getAttribute("data-target"));
+  var d = parseInt(el.getAttribute("data-decimals") || "0", 10);
+  var unit = el.querySelector("em");
+  var suffix = unit ? unit.outerHTML : "";
+  if (reduce){ el.innerHTML = fmt(to, d) + suffix; return; }
+  var t0 = performance.now(), dur = 1600;
+  (function tick(now){
+    var t = Math.min((now - t0) / dur, 1);
+    var e = 1 - Math.pow(1 - t, 3);
+    el.innerHTML = fmt(to * e, d) + suffix;
+    if (t < 1) requestAnimationFrame(tick);
+  })(performance.now());
+}
+var counters = document.querySelectorAll("[data-target]");
+if (!("IntersectionObserver" in window)){
+  counters.forEach(countUp);
+} else {
+  var cio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ countUp(e.target); cio.unobserve(e.target); } });
+  }, {threshold:.5});
+  counters.forEach(function(el){ cio.observe(el); });
+}
+
+/* ══════════════════════════════════════════════════════════
+   6 · SECCIÓN TESIS: tres tiempos guiados por el scroll
+   ══════════════════════════════════════════════════════════ */
+(function thesis(){
+  var track = document.getElementById("thesisTrack");
+  var beats = Array.prototype.slice.call(document.querySelectorAll("#beats .beat"));
+  var bars  = Array.prototype.slice.call(document.querySelectorAll("#beatBar i"));
+  var liquid = document.getElementById("liquid");
+  var tab = document.getElementById("tablet");
+  var tab2 = document.getElementById("tablet2");
+  var pct = document.getElementById("vesselPct");
+  var lbl = document.getElementById("vesselLabel");
+  if (!track || !beats.length) return;
+
+  var STATES = [
+    {fill:1,   pct:"95%",  label:"es agua",              tablet:false},
+    {fill:.62, pct:"1 : 1", label:"envase por dosis",    tablet:false},
+    {fill:.28, pct:"±",    label:"dosis estimada",       tablet:false}
+  ];
+  var last = -1;
+
+  function frame(){
+    var r = track.getBoundingClientRect();
+    var span = track.offsetHeight - window.innerHeight;
+    if (span <= 0) return;
+    var prog = Math.max(0, Math.min(1, -r.top / span));
+    var idx = Math.min(beats.length - 1, Math.floor(prog * beats.length * 0.999));
+    if (idx === last) return;
+    last = idx;
+    beats.forEach(function(b, i){ b.classList.toggle("is-on", i === idx); });
+    bars.forEach(function(b, i){ b.classList.toggle("on", i <= idx); });
+    var s = STATES[idx];
+    if (liquid) liquid.style.transform = "scaleY(" + s.fill + ")";
+    if (pct) pct.textContent = s.pct;
+    if (lbl) lbl.textContent = s.label;
+    if (tab) tab.style.opacity = s.tablet ? "1" : "0";
+    if (tab2) tab2.style.opacity = s.tablet ? "1" : "0";
+  }
+  window.addEventListener("scroll", frame, {passive:true});
+  window.addEventListener("resize", frame, {passive:true});
+  frame();
+})();
+
+/* ══════════════════════════════════════════════════════════
+   7 · NAV, PROGRESO Y SECCIÓN ACTIVA
+   ══════════════════════════════════════════════════════════ */
+(function chrome(){
+  var nav = document.getElementById("nav");
+  var bar = document.getElementById("progress");
+  var links = Array.prototype.slice.call(document.querySelectorAll(".nav__links a"));
+  var sections = links.map(function(a){ return document.querySelector(a.getAttribute("href")); });
+
+  function frame(){
+    var y = window.scrollY;
+    nav.classList.toggle("is-stuck", y > 40);
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (max > 0 ? (y / max) * 100 : 0) + "%";
+    var active = -1;
+    sections.forEach(function(s, i){
+      if (s && s.getBoundingClientRect().top <= window.innerHeight * 0.42) active = i;
+    });
+    links.forEach(function(a, i){ a.classList.toggle("is-current", i === active); });
+  }
+  window.addEventListener("scroll", frame, {passive:true});
+  frame();
+})();
+
+/* ══════════════════════════════════════════════════════════
+   8 · SHEEN DE LOS BOTONES DE VIDRIO
+   ══════════════════════════════════════════════════════════ */
+if (!coarse){
+  document.querySelectorAll(".lq").forEach(function(btn){
+    btn.addEventListener("pointermove", function(e){
+      var r = btn.getBoundingClientRect();
+      btn.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      btn.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   9 · EFERVESCENCIA EN EL CIERRE
+   ══════════════════════════════════════════════════════════ */
+(function fizz(){
+  var host = document.getElementById("fizz");
+  if (!host || reduce) return;
+  var out = "";
+  for (var i = 0; i < 18; i++){
+    var size = 8 + Math.random() * 44;
+    out += '<span class="bub" style="width:' + size + "px;height:" + size + "px;left:" +
+           (Math.random()*100) + "%;animation-duration:" + (11 + Math.random()*14) +
+           "s;animation-delay:" + (-Math.random()*18) + 's"></span>';
+  }
+  host.innerHTML = out;
+})();
+
+document.getElementById("year").textContent = new Date().getFullYear();
+})();
+</script>
